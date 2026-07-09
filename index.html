@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Restaurant Manager Pro</title>
+  <meta name="theme-color" content="#6d28d9">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./icon-192.png">
+  <link rel="stylesheet" href="./style.css?v=3">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="toast"></div>
+
+  <div class="app">
+    <header class="hero">
+      <div>
+        <div class="eyebrow">Restaurant Manager Pro</div>
+        <h1>Sales • Expenses • Inventory • SOP</h1>
+        <p>Orange + purple mobile dashboard for 2 iPhones and Mac.</p>
+      </div>
+      <button id="logoutBtn" class="light hidden">Logout</button>
+    </header>
+
+    <main>
+      <section id="authView" class="card auth">
+        <div class="logo">RM</div>
+        <h2>Login</h2>
+        <p class="muted">Use Supabase email and password.</p>
+        <input id="email" type="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <div class="row two">
+          <button id="loginBtn">Login</button>
+          <button id="signupBtn" class="outline">Create Account</button>
+        </div>
+        <p id="authMsg" class="muted"></p>
+      </section>
+
+      <section id="appView" class="hidden">
+        <nav class="tabs">
+          <button class="active" data-tab="dashboard">Dashboard</button>
+          <button data-tab="sales">Sales</button>
+          <button data-tab="expenses">Expenses</button>
+          <button data-tab="inventory" data-admin="true">Inventory</button>
+          <button data-tab="sop" data-admin="true">SOP</button>
+          <button data-tab="reports" data-admin="true">Reports</button>
+          <button data-tab="settings" data-admin="true">Settings</button>
+        </nav>
+
+        <section id="dashboard" class="panel active">
+          <div class="kpis">
+            <div class="kpi orange"><span>Today Sales</span><strong id="todaySales">₹0</strong></div>
+            <div class="kpi purple"><span>Today Expenses</span><strong id="todayExpenses">₹0</strong></div>
+            <div class="kpi"><span>Today Food Cost</span><strong id="todayFoodCost">₹0</strong></div>
+            <div class="kpi green"><span>Today Net Profit</span><strong id="todayNetProfit">₹0</strong></div>
+            <div class="kpi"><span>Monthly Sales</span><strong id="monthSales">₹0</strong></div>
+            <div class="kpi"><span>Monthly Expenses</span><strong id="monthExpenses">₹0</strong></div>
+            <div class="kpi green"><span>Monthly Profit</span><strong id="monthProfit">₹0</strong></div>
+            <div class="kpi red"><span>Low Stock</span><strong id="lowStockCount">0</strong></div>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <div class="title-row"><h2>Top-selling menu items</h2><button id="refreshBtn" class="small">Refresh</button></div>
+              <div id="topSellingList" class="list"></div>
+            </div>
+            <div class="card">
+              <h2>Cost per plate vs selling price</h2>
+              <div id="costingList" class="list"></div>
+            </div>
+            <div class="card">
+              <h2>Low-stock inventory alerts</h2>
+              <div id="lowStockList" class="list"></div>
+            </div>
+            <div class="card">
+              <h2>Most expensive purchased items</h2>
+              <div id="expensiveList" class="list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sales" class="panel">
+          <div class="card">
+            <h2>Menu-based fast sales entry</h2>
+            <form id="salesForm" class="form fast">
+              <input name="sale_date" type="date" required>
+              <select id="saleItem" name="item_name" required></select>
+              <input id="saleQty" name="quantity" type="number" inputmode="decimal" step="0.01" placeholder="Qty / plates sold" required>
+              <input id="salePrice" name="selling_price" type="number" inputmode="decimal" step="0.01" placeholder="Selling price" required>
+              <select name="payment_mode" required>
+                <option>UPI</option>
+                <option>Cash</option>
+                <option>Card</option>
+                <option>Credit</option>
+              </select>
+              <input name="notes" placeholder="Notes optional">
+              <div class="preview">Auto Total: <b id="saleTotalPreview">₹0</b> | Plate Cost: <b id="saleCostPreview">₹0</b> | Profit: <b id="saleProfitPreview">₹0</b></div>
+              <button type="submit">Save Sale</button>
+            </form>
+          </div>
+          <div class="card"><h2>Recent Sales</h2><div id="salesList" class="list"></div></div>
+        </section>
+
+        <section id="expenses" class="panel">
+          <div class="card">
+            <h2>Expense / Purchase entry</h2>
+            <form id="expenseForm" class="form fast">
+              <input name="expense_date" type="date" required>
+              <input name="item_name" list="expenseItemList" placeholder="Item name" required>
+              <datalist id="expenseItemList">
+                <option>Haldi powder</option><option>Garam masala</option><option>Chicken</option><option>Fish</option><option>Rice</option><option>Onion</option><option>Tomato</option><option>Oil</option><option>Poly bag</option><option>Containers</option><option>Masala items</option><option>Vegetables</option>
+              </datalist>
+              <select name="category" required>
+                <option>Raw Material</option><option>Packaging</option><option>Utility</option><option>Other</option>
+              </select>
+              <input id="expenseQty" name="quantity" type="number" inputmode="decimal" step="0.001" placeholder="Quantity purchased" required>
+              <select name="unit" required>
+                <option>kg</option><option>gram</option><option>litre</option><option>ml</option><option>pieces</option><option>packet</option>
+              </select>
+              <input id="buyPrice" name="total_price" type="number" inputmode="decimal" step="0.01" placeholder="Buying price" required>
+              <input name="supplier" placeholder="Supplier / vendor">
+              <input name="notes" placeholder="Notes optional">
+              <div class="preview">Rate per unit: <b id="ratePreview">₹0</b></div>
+              <button type="submit">Save Expense & Auto-update Inventory</button>
+            </form>
+          </div>
+          <div class="card"><h2>Recent Expenses</h2><div id="expensesList" class="list"></div></div>
+        </section>
+
+        <section id="inventory" class="panel">
+          <div class="card">
+            <h2>Inventory auto-updated from expenses and SOP</h2>
+            <div id="inventoryList" class="list"></div>
+          </div>
+        </section>
+
+        <section id="sop" class="panel">
+          <div class="card">
+            <h2>SOP / Recipe costing</h2>
+            <form id="sopForm" class="form">
+              <select id="sopItem" name="menu_item_name" required></select>
+              <input name="selling_price" type="number" inputmode="decimal" step="0.01" placeholder="Selling price per plate" required>
+              <input name="quantity_prepared" type="number" inputmode="decimal" step="0.01" placeholder="Quantity prepared">
+              <input name="plates_produced" type="number" inputmode="decimal" step="0.01" placeholder="Number of plates/items produced" required>
+              <textarea class="wide" name="ingredients_text" placeholder="Ingredients one per line: Chicken | 2 | kg | 180"></textarea>
+              <textarea name="preparation_steps" placeholder="Preparation steps"></textarea>
+              <textarea name="hygiene_instructions" placeholder="Hygiene instructions"></textarea>
+              <textarea name="portion_size" placeholder="Portion size"></textarea>
+              <textarea name="plating_instructions" placeholder="Plating instructions"></textarea>
+              <textarea name="storage_instructions" placeholder="Storage instructions"></textarea>
+              <div class="hint wide">Format: ingredient | quantity used | unit | price per unit. Example: Rice | 1.5 | kg | 60</div>
+              <button type="submit">Save SOP, Calculate Cost & Reduce Inventory</button>
+            </form>
+          </div>
+          <div class="card"><h2>SOP costing report</h2><div id="sopList" class="list"></div></div>
+        </section>
+
+        <section id="reports" class="panel">
+          <div class="card">
+            <h2>Reports</h2>
+            <div class="kpis report">
+              <div class="kpi"><span>Daily Sales</span><strong id="rDailySales">₹0</strong></div>
+              <div class="kpi"><span>Daily Expenses</span><strong id="rDailyExpenses">₹0</strong></div>
+              <div class="kpi green"><span>Daily Profit</span><strong id="rDailyProfit">₹0</strong></div>
+              <div class="kpi"><span>Monthly Sales</span><strong id="rMonthSales">₹0</strong></div>
+              <div class="kpi"><span>Monthly Expenses</span><strong id="rMonthExpenses">₹0</strong></div>
+              <div class="kpi green"><span>Monthly Profit</span><strong id="rMonthProfit">₹0</strong></div>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="card"><h2>Item-wise sales and profit</h2><div id="itemReport" class="list"></div></div>
+            <div class="card"><h2>Payment mode report</h2><div id="paymentReport" class="list"></div></div>
+          </div>
+        </section>
+
+        <section id="settings" class="panel">
+          <div class="card">
+            <h2>User role</h2>
+            <p class="muted">Admin gets all modules. Staff/Partner sees only Sales and Expenses.</p>
+            <div id="roleBox" class="preview"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    window.APP_CONFIG = {
+      SUPABASE_URL: "https://jtycpytipcqlghvqtgvm.supabase.co",
+      SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0eWNweXRpcGNxbGdodnF0Z3ZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTgzODcsImV4cCI6MjA5OTE3NDM4N30.TIHtwc3Jv5D9wyLH9S6fDPTZLckdQm3HYYXHlkeVJY8"
+    };
+  </script>
+  <script src="./app.js?v=3"></script>
+</body>
+</html>
