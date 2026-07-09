@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Restaurant Manager Manual Users</title>
+<title>OrderFlow Restaurant Console</title>
 <meta name="theme-color" content="#6d28d9">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -14,12 +14,12 @@
 <div id="toast"></div>
 <div class="app">
 <header class="hero">
-<div><div class="eyebrow">Restaurant Manager Manual Users v1</div><h1>Sales • Expenses • Inventory • SOP</h1><p>Default login: username admin / password admin123</p></div>
+<div><div class="eyebrow">OrderFlow Restaurant Console</div><h1>Cloud dashboard for food orders, stock and costing</h1><p>Manage daily sales, Zomato/Swiggy-style item entries, inventory, expenses, SOPs and profit reports from one place.</p></div>
 <button id="logoutBtn" class="light hidden">Logout</button>
 </header>
 <main>
 <section id="authView" class="card auth">
-<div class="logo">RM</div><h2>Manual Login</h2><p class="muted">Default username: <b>admin</b> / password: <b>admin123</b>. Change after first login.</p>
+<div class="logo">OF</div><h2>Secure Staff Login</h2><p class="muted">Login with the user ID created by your administrator.</p>
 <input id="username" type="text" placeholder="Username">
 <input id="password" type="password" placeholder="Password">
 <button id="loginBtn">Login</button>
@@ -53,7 +53,7 @@
 
 <section id="settings" class="panel">
 <div class="card">
-<h2>Create New User</h2>
+<h2>Create New User</h2><p class="muted">Create admin, manager, staff or inventory user IDs for your team.</p>
 <form id="createUserForm" class="form fast">
 <input name="username" placeholder="Username e.g. staff1" required>
 <input name="display_name" placeholder="Display name">
@@ -303,8 +303,8 @@ $("createUserForm").onsubmit = async e => {
 };
 
 async function loadUsersEditor(){
-  const { data, error } = await db.from("app_users").select("id, username, display_name, role, active, created_at").order("id");
-  if(error){ $("usersList").innerHTML = row("Error", error.message); return; }
+  const { data, error } = await db.rpc("app_list_users");
+  if(error){ $("usersList").innerHTML = row("Error loading users", error.message + "<br>Run the latest user-list SQL fix."); return; }
   $("usersList").innerHTML = (data||[]).map(u => `
     <div class="item">
       <div class="user-row">
@@ -318,13 +318,13 @@ async function loadUsersEditor(){
         </select>
         <button class="small" onclick="saveUser(${u.id})">Save</button>
       </div>
-      <div class="meta"><b>${u.username}</b> | ID ${u.id}</div>
+      <div class="meta"><b>User ID:</b> ${u.username} | <b>System ID:</b> ${u.id} | <b>Created:</b> ${u.created_at ? String(u.created_at).slice(0,10) : "-"}</div>
       <div class="user-row" style="margin-top:10px">
         <input data-u-pass="${u.id}" type="password" placeholder="New password">
         <button class="small" onclick="changePassword(${u.id})">Change Password</button>
       </div>
     </div>
-  `).join("") || row("No users", "Default admin should exist after SQL setup.");
+  `).join("") || row("No users found", "Run the latest user-list SQL fix and refresh the app.");
 }
 
 async function saveUser(id){
