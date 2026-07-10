@@ -1,9 +1,4 @@
-// OrderFlow Supabase Configuration
-// Replace these two values with your Supabase Project URL and anon public key.
-// Supabase URL example: https://xxxxxxxxxxxxxxxxxxxx.supabase.co
-// anon public key is safe to use in frontend when RLS/RPC policies are configured.
-
 window.ORDERFLOW_CONFIG = {
-  SUPABASE_URL: "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE",
-  SUPABASE_ANON_KEY: "PASTE_YOUR_SUPABASE_ANON_PUBLIC_KEY_HERE"
+  SUPABASE_URL: "https://jtycpytipcqlghvqtgvm.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0eWNweXRpcGNxbGdodnF0Z3ZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTgzODcsImV4cCI6MjA5OTE3NDM4N30.TIHtwc3Jv5D9wyLH9S6fDPTZLckdQm3HYYXHlkeVJY8"
 };
