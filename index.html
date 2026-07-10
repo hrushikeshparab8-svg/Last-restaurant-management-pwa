@@ -1,35 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OrderFlow Restaurant Console</title>
-<meta name="theme-color" content="#6d28d9">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box}:root{--orange:#ff7a00;--purple:#6d28d9;--bg:#f6f4ff;--text:#18181b;--muted:#71717a;--border:#e7e5e4;--green:#15803d;--red:#dc2626;--shadow:0 16px 38px rgba(24,24,27,.09)}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,#fff0df,transparent 34%),radial-gradient(circle at top right,#eee6ff,transparent 34%),var(--bg)}.app{width:min(1220px,100%);margin:auto;padding:14px}.hidden{display:none!important}.hero{display:flex;justify-content:space-between;gap:16px;align-items:center;background:linear-gradient(135deg,var(--orange),var(--purple));color:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:12px;opacity:.88}.hero h1{margin:5px 0;font-size:clamp(24px,5vw,38px);line-height:1.08}.hero p{margin:0;opacity:.9}button{border:0;border-radius:16px;min-height:48px;padding:0 16px;background:linear-gradient(135deg,var(--orange),var(--purple));color:#fff;font-weight:900;cursor:pointer}button.light{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3)}button.outline,button.small{background:#fff;color:var(--purple);border:1px solid #ddd6fe}.small{min-height:38px}.danger{background:#fee2e2!important;color:#b91c1c!important;border:1px solid #fecaca!important}.card,.auth{background:rgba(255,255,255,.94);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:24px;padding:18px;margin-top:16px}.auth{max-width:430px;margin:28px auto}.logo{width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--purple));display:grid;place-items:center;color:#fff;font-weight:900;font-size:22px;margin-bottom:10px}h2{margin:0 0 14px;font-size:20px}h3{margin:0 0 10px;font-size:17px}.muted{color:var(--muted)}input,select,textarea{width:100%;min-height:48px;border:1px solid var(--border);border-radius:16px;padding:12px 14px;font-size:16px;background:#fff;outline:none}textarea{min-height:92px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(109,40,217,.12)}.row.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.auth input{margin:8px 0}.tabs{display:flex;gap:10px;overflow-x:auto;position:sticky;top:0;z-index:5;padding:14px 0 5px;background:linear-gradient(180deg,var(--bg),rgba(246,244,255,.92))}.tabs button{background:#fff;color:var(--text);border:1px solid var(--border);white-space:nowrap}.tabs button.active{background:linear-gradient(135deg,var(--orange),var(--purple));color:#fff;border:0}.panel{display:none}.panel.active{display:block}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.kpi{background:#fff;border:1px solid var(--border);border-radius:22px;padding:16px;box-shadow:var(--shadow);overflow:hidden;position:relative}.kpi:after{content:"";position:absolute;right:-25px;top:-25px;width:84px;height:84px;border-radius:50%;background:#f1eaff}.kpi.orange:after{background:#fff1e6}.kpi span{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}.kpi strong{font-size:26px;position:relative;z-index:1}.green strong{color:var(--green)}.red strong{color:var(--red)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.title-row{display:flex;justify-content:space-between;align-items:center;gap:12px}.form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.form.fast{grid-template-columns:repeat(4,1fr)}.wide{grid-column:1/-1}.form button{grid-column:span 2}.preview,.hint{background:#fafafa;border:1px dashed var(--border);border-radius:16px;padding:13px;min-height:48px}.hint{color:var(--muted)}.list{display:grid;gap:10px}.item{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px}.item strong{display:block;margin-bottom:6px}.meta{color:var(--muted);font-size:14px;line-height:1.55}.pill{display:inline-flex;border-radius:999px;padding:4px 9px;background:#f1eaff;color:#6d28d9;font-size:12px;font-weight:900;margin-right:5px}.pill.orange{background:#fff1e6;color:#c2410c}.pill.red{background:#fee2e2;color:#b91c1c}#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:99;background:#18181b;color:#fff;border-radius:999px;padding:10px 16px;box-shadow:var(--shadow);display:none}.errorbox{background:#fff1f2;border-color:#fecdd3;color:#991b1b;white-space:pre-wrap}.perm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}.perm-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--border);border-radius:14px;padding:10px;background:#fff}.perm-row input{width:22px;min-height:22px}.role-card{border:1px solid var(--border);border-radius:20px;padding:14px;background:#fff;margin-bottom:12px}.user-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:10px;align-items:center}@media(max-width:920px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.form,.form.fast,.perm-grid{grid-template-columns:1fr 1fr}.user-row{grid-template-columns:1fr 1fr}}@media(max-width:600px){.app{padding:10px}.hero{border-radius:22px;align-items:flex-start}.hero h1{font-size:24px}.kpis,.grid2,.form,.form.fast,.row.two,.perm-grid,.user-row{grid-template-columns:1fr}.form button{grid-column:auto}.card,.auth{border-radius:20px;padding:15px}.tabs{margin-left:-10px;margin-right:-10px;padding-left:10px;padding-right:10px}.kpi strong{font-size:24px}}
-</style>
-</head>
-<body>
-<div id="toast"></div>
-<div class="app">
-<header class="hero">
-<div><div class="eyebrow">OrderFlow Restaurant Console</div><h1>Cloud dashboard for food orders, stock and costing</h1><p>Manage daily sales, Zomato/Swiggy-style item entries, inventory, expenses, SOPs and profit reports from one place.</p></div>
-<button id="logoutBtn" class="light hidden">Logout</button>
-</header>
+*{box-sizing:border-box}:root{--orange:#ff7a00;--purple:#6d28d9;--bg:#f6f4ff;--text:#18181b;--muted:#71717a;--border:#e7e5e4;--green:#15803d;--red:#dc2626;--shadow:0 16px 38px rgba(24,24,27,.09)}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,#fff0df,transparent 34%),radial-gradient(circle at top right,#eee6ff,transparent 34%),var(--bg)}.app{width:min(1260px,100%);margin:auto;padding:14px}.hidden{display:none!important}.hero{display:flex;justify-content:space-between;gap:16px;align-items:center;background:linear-gradient(135deg,var(--orange),var(--purple));color:#fff;border-radius:28px;padding:22px;box-shadow:var(--shadow)}.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:12px;opacity:.9}.hero h1{margin:5px 0;font-size:clamp(24px,5vw,38px);line-height:1.08}.hero p{margin:0;opacity:.9}button{border:0;border-radius:16px;min-height:48px;padding:0 16px;background:linear-gradient(135deg,var(--orange),var(--purple));color:#fff;font-weight:900;cursor:pointer}button.light{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3)}button.outline,button.small{background:#fff;color:var(--purple);border:1px solid #ddd6fe}.small{min-height:38px}.danger{background:#fee2e2!important;color:#b91c1c!important;border:1px solid #fecaca!important}.card,.auth{background:rgba(255,255,255,.94);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:24px;padding:18px;margin-top:16px}.auth{max-width:430px;margin:28px auto}.logo{width:58px;height:58px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--purple));display:grid;place-items:center;color:#fff;font-weight:900;font-size:22px;margin-bottom:10px}h2{margin:0 0 14px;font-size:20px}h3{margin:0 0 10px;font-size:17px}.muted{color:var(--muted)}input,select,textarea{width:100%;min-height:48px;border:1px solid var(--border);border-radius:16px;padding:12px 14px;font-size:16px;background:#fff;outline:none}textarea{min-height:92px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(109,40,217,.12)}.row.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.auth input{margin:8px 0}.tabs{display:flex;gap:10px;overflow-x:auto;position:sticky;top:0;z-index:5;padding:14px 0 5px;background:linear-gradient(180deg,var(--bg),rgba(246,244,255,.92))}.tabs button{background:#fff;color:var(--text);border:1px solid var(--border);white-space:nowrap}.tabs button.active{background:linear-gradient(135deg,var(--orange),var(--purple));color:#fff;border:0}.panel{display:none}.panel.active{display:block}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.kpi{background:#fff;border:1px solid var(--border);border-radius:22px;padding:16px;box-shadow:var(--shadow);overflow:hidden;position:relative}.kpi span{display:block;color:var(--muted);font-size:13px;margin-bottom:7px}.kpi strong{font-size:24px}.green strong{color:var(--green)}.red strong{color:var(--red)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.form.fast{grid-template-columns:repeat(4,1fr)}.wide{grid-column:1/-1}.form button{grid-column:span 2}.preview,.hint{background:#fafafa;border:1px dashed var(--border);border-radius:16px;padding:13px;min-height:48px}.hint{color:var(--muted)}.list{display:grid;gap:10px}.item{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px}.item strong{display:block;margin-bottom:6px}.meta{color:var(--muted);font-size:14px;line-height:1.55}.pill{display:inline-flex;border-radius:999px;padding:4px 9px;background:#f1eaff;color:#6d28d9;font-size:12px;font-weight:900;margin-right:5px}.pill.orange{background:#fff1e6;color:#c2410c}.pill.red{background:#fee2e2;color:#b91c1c}.pill.green{background:#dcfce7;color:#166534}#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:99;background:#18181b;color:#fff;border-radius:999px;padding:10px 16px;box-shadow:var(--shadow);display:none}.bar{height:12px;background:#eee;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--orange),var(--purple))}.perm-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}.perm-row{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--border);border-radius:14px;padding:10px;background:#fff}.perm-row input{width:22px;min-height:22px}.role-card{border:1px solid var(--border);border-radius:20px;padding:14px;background:#fff;margin-bottom:12px}.user-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:10px;align-items:center}@media(max-width:920px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.grid3,.form,.form.fast,.perm-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.app{padding:10px}.hero{border-radius:22px;align-items:flex-start}.hero h1{font-size:24px}.kpis,.grid2,.grid3,.form,.form.fast,.row.two,.perm-grid,.user-row{grid-template-columns:1fr}.form button{grid-column:auto}.card,.auth{border-radius:20px;padding:15px}.tabs{margin-left:-10px;margin-right:-10px;padding-left:10px;padding-right:10px}.tabs button[data-tab="production"]{font-size:0}.tabs button[data-tab="production"]:after{content:"Production";font-size:14px}}
+</style></head>
+<body><div id="toast"></div><div class="app">
+<header class="hero"><div><div class="eyebrow">OrderFlow Restaurant Console</div><h1>Cloud dashboard for food orders, stock, production and costing</h1><p>Manage Swiggy/Zomato-style sales, Flipkart-style operations, raw inventory, daily production, thali components and profit reports.</p></div><button id="logoutBtn" class="light hidden">Logout</button></header>
 <main>
-<section id="authView" class="card auth">
-<div class="logo">OF</div><h2>Secure Staff Login</h2><p class="muted">Login with the user ID created by your administrator.</p>
-<input id="username" type="text" placeholder="Username">
-<input id="password" type="password" placeholder="Password">
-<button id="loginBtn">Login</button>
-<p id="authMsg" class="muted"></p></section>
-
+<section id="authView" class="card auth"><div class="logo">OF</div><h2>Secure Staff Login</h2><p class="muted">Login with the user ID created by your administrator.</p><input id="username" placeholder="User ID"><input id="password" type="password" placeholder="Password"><button id="loginBtn">Login</button><p id="authMsg" class="muted"></p></section>
 <section id="appView" class="hidden">
 <nav class="tabs">
 <button class="active" data-tab="dashboard" data-permission="can_view_dashboard">Dashboard</button>
 <button data-tab="sales" data-permission="can_view_sales">Sales</button>
 <button data-tab="expenses" data-permission="can_view_expenses">Expenses</button>
+<button data-tab="production" data-permission="can_view_daily_production">Daily Production</button>
 <button data-tab="inventory" data-permission="can_view_inventory">Inventory</button>
 <button data-tab="sop" data-permission="can_view_sop">SOP</button>
 <button data-tab="reports" data-permission="can_view_reports">Reports</button>
@@ -37,354 +24,95 @@
 </nav>
 
 <section id="dashboard" class="panel active">
-<div class="kpis"><div class="kpi orange"><span>Today Sales</span><strong id="todaySales">₹0</strong></div><div class="kpi purple"><span>Today Expenses</span><strong id="todayExpenses">₹0</strong></div><div class="kpi"><span>Today Food Cost</span><strong id="todayFoodCost">₹0</strong></div><div class="kpi green"><span>Today Net Profit</span><strong id="todayNetProfit">₹0</strong></div><div class="kpi"><span>Monthly Sales</span><strong id="monthSales">₹0</strong></div><div class="kpi"><span>Monthly Expenses</span><strong id="monthExpenses">₹0</strong></div><div class="kpi green"><span>Monthly Profit</span><strong id="monthProfit">₹0</strong></div><div class="kpi red"><span>Low Stock</span><strong id="lowStockCount">0</strong></div></div>
-<div class="grid2"><div class="card"><div class="title-row"><h2>Top-selling menu items</h2><button id="refreshBtn" class="small">Refresh</button></div><div id="topSellingList" class="list"></div></div><div class="card"><h2>Cost per plate vs selling price</h2><div id="costingList" class="list"></div></div><div class="card"><h2>Low-stock inventory alerts</h2><div id="lowStockList" class="list"></div></div><div class="card"><h2>Most expensive purchased items</h2><div id="expensiveList" class="list"></div></div></div>
+<div class="card"><div class="form fast"><select id="dashFilter"><option value="today">Today</option><option value="yesterday">Yesterday</option><option value="week">This Week</option><option value="month">This Month</option><option value="custom">Custom Date</option><option value="range">Custom Date Range</option></select><input id="dashStart" type="date"><input id="dashEnd" type="date"><button id="applyDashFilter">Apply Filter</button></div></div>
+<div class="kpis">
+<div class="kpi"><span>Sales Revenue</span><strong id="kSales">₹0</strong></div><div class="kpi"><span>Purchase Expenses</span><strong id="kPurchases">₹0</strong></div><div class="kpi"><span>Production Cost</span><strong id="kProduction">₹0</strong></div><div class="kpi"><span>Operating Expenses</span><strong id="kOperating">₹0</strong></div><div class="kpi green"><span>Gross Profit</span><strong id="kGross">₹0</strong></div><div class="kpi green"><span>Net Operating Profit</span><strong id="kNet">₹0</strong></div><div class="kpi"><span>Sales Minus Today’s Expenses</span><strong id="kCashBalance">₹0</strong></div><div class="kpi red"><span>Wastage Cost</span><strong id="kWastage">₹0</strong></div><div class="kpi"><span>Plates / Portions Sold</span><strong id="kPortions">0</strong></div><div class="kpi"><span>Prepared Quantity</span><strong id="kPrepared">0</strong></div><div class="kpi"><span>Prepared Closing Balance</span><strong id="kPreparedClosing">0</strong></div><div class="kpi"><span>UPI / Cash / Card</span><strong id="kPayments">₹0</strong></div>
+</div>
+<div class="grid2"><div class="card"><h2>Sales versus food cost</h2><div id="chartSalesFood" class="list"></div></div><div class="card"><h2>Profit trend</h2><div id="chartProfit" class="list"></div></div><div class="card"><h2>Top-selling items</h2><div id="topSellingList" class="list"></div></div><div class="card"><h2>Highest-cost dishes</h2><div id="highestCostList" class="list"></div></div></div>
 </section>
 
-<section id="sales" class="panel"><div class="card"><h2>Menu-based fast sales entry</h2><form id="salesForm" class="form fast"><input name="sale_date" type="date" required><select id="saleItem" name="item_name" required></select><input id="saleQty" name="quantity" type="number" inputmode="decimal" step="0.01" placeholder="Qty / plates sold" required><input id="salePrice" name="selling_price" type="number" inputmode="decimal" step="0.01" placeholder="Selling price" required><select name="payment_mode" required><option>UPI</option><option>Cash</option><option>Card</option><option>Credit</option></select><input name="notes" placeholder="Notes optional"><div class="preview">Auto Total: <b id="saleTotalPreview">₹0</b> | Plate Cost: <b id="saleCostPreview">₹0</b> | Profit: <b id="saleProfitPreview">₹0</b></div><button id="saveSaleBtn" type="submit">Save Sale</button></form></div><div class="card"><h2>Recent Sales</h2><div id="salesList" class="list"></div></div></section>
+<section id="sales" class="panel"><div class="card"><h2>Menu-based fast sales entry</h2><form id="salesForm" class="form fast"><input name="sale_date" type="date" required><select id="saleItem" name="item_name" required></select><input id="saleQty" name="quantity" type="number" step="0.01" placeholder="Qty / plates sold" required><input id="salePrice" name="selling_price" type="number" step="0.01" placeholder="Selling price" required><select name="payment_mode"><option>UPI</option><option>Cash</option><option>Card</option><option>Other</option><option>Credit</option></select><input name="notes" placeholder="Notes optional"><div class="preview">Sale deducts prepared food stock, not raw material again.</div><button id="saveSaleBtn" type="submit">Save Sale</button></form></div><div class="card"><h2>Recent Sales</h2><div id="salesList" class="list"></div></div></section>
 
-<section id="expenses" class="panel"><div class="card"><h2>Expense / Purchase entry</h2><form id="expenseForm" class="form fast"><input name="expense_date" type="date" required><input name="item_name" list="expenseItemList" placeholder="Item name" required><datalist id="expenseItemList"><option>Haldi powder</option><option>Garam masala</option><option>Chicken</option><option>Fish</option><option>Rice</option><option>Onion</option><option>Tomato</option><option>Oil</option><option>Poly bag</option><option>Containers</option><option>Masala items</option><option>Vegetables</option></datalist><select name="category" required><option>Raw Material</option><option>Packaging</option><option>Utility</option><option>Other</option></select><input id="expenseQty" name="quantity" type="number" inputmode="decimal" step="0.001" placeholder="Quantity purchased" required><select name="unit" required><option>kg</option><option>gram</option><option>litre</option><option>ml</option><option>pieces</option><option>packet</option></select><input id="buyPrice" name="total_price" type="number" inputmode="decimal" step="0.01" placeholder="Buying price" required><input name="supplier" placeholder="Supplier / vendor"><input name="notes" placeholder="Notes optional"><div class="preview">Rate per unit: <b id="ratePreview">₹0</b></div><button id="saveExpenseBtn" type="submit">Save Expense & Auto-update Inventory</button></form></div><div class="card"><h2>Recent Expenses</h2><div id="expensesList" class="list"></div></div></section>
+<section id="expenses" class="panel"><div class="card"><h2>Expense / Purchase entry</h2><form id="expenseForm" class="form fast"><input name="expense_date" type="date" required><input name="item_name" list="expenseItemList" placeholder="Item name" required><datalist id="expenseItemList"><option>Haldi powder</option><option>Garam masala</option><option>Chicken</option><option>Fish</option><option>Rice</option><option>Onion</option><option>Tomato</option><option>Oil</option><option>Poly bag</option><option>Containers</option><option>Gas</option><option>Labour</option></datalist><select name="category"><option>Raw Material</option><option>Packaging</option><option>Utility</option><option>Labour</option><option>Rent</option><option>Maintenance</option><option>Other</option></select><input id="expenseQty" name="quantity" type="number" step="0.001" placeholder="Quantity"><select name="unit"><option>kg</option><option>gram</option><option>litre</option><option>ml</option><option>piece</option><option>packet</option></select><input id="buyPrice" name="total_price" type="number" step="0.01" placeholder="Amount" required><input name="supplier" placeholder="Supplier / vendor"><input name="notes" placeholder="Notes"><button id="saveExpenseBtn" type="submit">Save Expense</button></form></div><div class="card"><h2>Recent Expenses</h2><div id="expensesList" class="list"></div></div></section>
 
-<section id="inventory" class="panel"><div class="card"><h2>Inventory auto-updated from expenses and SOP</h2><div id="inventoryList" class="list"></div></div></section>
-
-<section id="sop" class="panel"><div class="card"><h2>SOP / Recipe costing</h2><form id="sopForm" class="form"><select id="sopItem" name="menu_item_name" required></select><input name="selling_price" type="number" inputmode="decimal" step="0.01" placeholder="Selling price per plate" required><input name="quantity_prepared" type="number" inputmode="decimal" step="0.01" placeholder="Quantity prepared"><input name="plates_produced" type="number" inputmode="decimal" step="0.01" placeholder="Number of plates/items produced" required><textarea class="wide" name="ingredients_text" placeholder="Ingredients one per line: Chicken | 2 | kg | 180"></textarea><textarea name="preparation_steps" placeholder="Preparation steps"></textarea><textarea name="hygiene_instructions" placeholder="Hygiene instructions"></textarea><textarea name="portion_size" placeholder="Portion size"></textarea><textarea name="plating_instructions" placeholder="Plating instructions"></textarea><textarea name="storage_instructions" placeholder="Storage instructions"></textarea><div class="hint wide">Format: ingredient | quantity used | unit | price per unit. Example: Rice | 1.5 | kg | 60</div><button id="saveSopBtn" type="submit">Save SOP, Calculate Cost & Reduce Inventory</button></form></div><div class="card"><h2>SOP costing report</h2><div id="sopList" class="list"></div></div></section>
-
-<section id="reports" class="panel"><div class="card"><h2>Reports</h2><div class="kpis report"><div class="kpi"><span>Daily Sales</span><strong id="rDailySales">₹0</strong></div><div class="kpi"><span>Daily Expenses</span><strong id="rDailyExpenses">₹0</strong></div><div class="kpi green"><span>Daily Profit</span><strong id="rDailyProfit">₹0</strong></div><div class="kpi"><span>Monthly Sales</span><strong id="rMonthSales">₹0</strong></div><div class="kpi"><span>Monthly Expenses</span><strong id="rMonthExpenses">₹0</strong></div><div class="kpi green"><span>Monthly Profit</span><strong id="rMonthProfit">₹0</strong></div></div></div><div class="grid2"><div class="card"><h2>Item-wise sales and profit</h2><div id="itemReport" class="list"></div></div><div class="card"><h2>Payment mode report</h2><div id="paymentReport" class="list"></div></div></div></section>
-
-<section id="settings" class="panel">
-<div class="card">
-<h2>Create New User</h2><p class="muted">Create admin, manager, staff or inventory user IDs for your team.</p>
-<form id="createUserForm" class="form fast">
-<input name="username" placeholder="Username e.g. staff1" required>
-<input name="display_name" placeholder="Display name">
-<input name="password" type="password" placeholder="Password" required>
-<select name="role"><option>staff</option><option>manager</option><option>inventory_user</option><option>admin</option></select>
-<button type="submit">Create User</button>
-</form>
-</div>
-<div class="card">
-<h2>Manage Users</h2>
-<div id="usersList" class="list"></div>
-</div>
-<div class="card">
-<h2>Role Privileges</h2>
-<p class="muted">Tick what each role can access. Save changes, then logout/login again.</p>
-<div id="permissionsEditor"></div>
-</div>
+<section id="production" class="panel">
+<div class="card"><h2>Today’s Production</h2><p class="muted">Main module name is Daily Production; records are historical and filterable.</p><form id="productionForm" class="form fast">
+<input name="production_date" type="date" required><input id="prodDish" name="dish_name" list="sopListData" placeholder="Prepared dish or component" required><datalist id="sopListData"></datalist><input id="prodQty" name="quantity_prepared" type="number" step="0.001" placeholder="Production quantity" required><select id="prodUnit" name="production_unit"><option>kg</option><option>litre</option><option>piece</option><option>portion</option><option>batch</option></select><input id="stdQty" readonly placeholder="SOP standard quantity"><input id="prodMultiplier" readonly placeholder="Production multiplier"><input id="ingredientCost" readonly placeholder="Estimated ingredient cost"><input id="addCost" name="additional_cost" type="number" step="0.01" placeholder="Additional cost optional"><input id="totalProdCost" readonly placeholder="Total production cost"><input id="expectedServings" readonly placeholder="Expected servings / plates"><input name="actual_servings" type="number" step="0.01" placeholder="Actual servings optional"><input name="prepared_by" placeholder="Prepared by"><input class="wide" name="notes" placeholder="Notes"><div class="preview wide"><b>Before confirmation:</b><div id="prodPreview" class="list"></div></div><button id="confirmProductionBtn" type="submit">Confirm Production</button></form></div>
+<div class="grid2"><div class="card"><h2>Production Records</h2><div id="productionList" class="list"></div></div><div class="card"><h2>Prepared Food Stock</h2><div id="preparedStockList" class="list"></div></div><div class="card"><h2>Thali Capacity</h2><div class="form"><select id="capacityThali"><option>Veg Thali</option><option>Fish Thali</option><option>Chicken Thali</option><option>Bangda Thali</option><option>Prawns Thali</option><option>King Fish Thali</option></select><input id="capacityDate" type="date"><button id="checkCapacityBtn">Check Capacity</button></div><div id="capacityList" class="list"></div></div><div class="card"><h2>Record Wastage</h2><form id="wastageForm" class="form"><input name="wastage_date" type="date" required><input name="dish_name" placeholder="Dish/component" required><input name="quantity" type="number" step="0.001" placeholder="Quantity" required><select name="unit"><option>kg</option><option>litre</option><option>g</option><option>ml</option><option>piece</option></select><input name="reason" placeholder="Reason"><button id="recordWastageBtn">Record Wastage</button></form></div></div>
 </section>
+
+<section id="inventory" class="panel"><div class="card"><h2>Raw Material Inventory</h2><div id="inventoryList" class="list"></div></div></section>
+
+<section id="sop" class="panel"><div class="card"><h2>SOP / Recipe standard setup</h2><form id="sopForm" class="form"><input name="menu_item_name" placeholder="Dish or component name" required><select name="preparation_type"><option value="weight">Weight based</option><option value="liquid">Liquid based</option><option value="piece">Piece based</option><option value="plate">Composite thali / plate</option></select><input name="standard_quantity" type="number" step="0.001" value="1" placeholder="Standard qty"><select name="standard_unit"><option>kg</option><option>litre</option><option>piece</option><option>portion</option></select><input name="serving_size" type="number" step="0.001" placeholder="Serving size"><select name="serving_unit"><option>g</option><option>ml</option><option>piece</option><option>plate</option><option>portion</option></select><input name="selling_price" type="number" step="0.01" placeholder="Selling price"><textarea class="wide" name="ingredients_text" placeholder="Direct SOP ingredients one per line: Rice | 500 | g"></textarea><textarea class="wide" name="components_text" placeholder="For thalis only, components one per line: Rice | 250 | g"></textarea><button type="submit">Save SOP</button></form></div><div class="grid2"><div class="card"><h2>Active SOP list</h2><div id="sopRows" class="list"></div></div><div class="card"><h2>Thali components</h2><div id="thaliRows" class="list"></div></div></div></section>
+
+<section id="reports" class="panel"><div class="card"><h2>Daily Report</h2><div class="form fast"><select id="reportFilter"><option value="today">Today</option><option value="yesterday">Yesterday</option><option value="week">This Week</option><option value="month">This Month</option><option value="custom">Custom Date</option><option value="range">Custom Date Range</option></select><input id="reportStart" type="date"><input id="reportEnd" type="date"><button id="applyReportFilter">Apply</button></div><div id="dailyReport" class="list"></div></div></section>
+
+<section id="settings" class="panel"><div class="card"><h2>Create New User</h2><form id="createUserForm" class="form fast"><input name="username" placeholder="User ID" required><input name="display_name" placeholder="Display name"><input name="password" type="password" placeholder="Password" required><select name="role"><option>staff</option><option>manager</option><option>inventory_user</option><option>admin</option></select><button type="submit">Create User</button></form></div><div class="card"><h2>Manage Users</h2><div id="usersList" class="list"></div></div><div class="card"><h2>Role Privileges</h2><div id="permissionsEditor"></div></div></section>
 </section></main></div>
 
 <script>
-const SUPABASE_URL = "https://jtycpytipcqlghvqtgvm.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp0eWNweXRpcGNxbGdodnF0Z3ZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTgzODcsImV4cCI6MjA5OTE3NDM4N30.TIHtwc3Jv5D9wyLH9S6fDPTZLckdQm3HYYXHlkeVJY8";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const $ = id => document.getElementById(id);
-const money = v => `₹${Number(v || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
-const todayISO = () => new Date().toISOString().slice(0,10);
-const monthStartISO = () => new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().slice(0,10);
-const toast = msg => { $("toast").textContent = msg; $("toast").style.display="block"; setTimeout(()=> $("toast").style.display="none", 2500); };
-
-let menuItems = [];
-let currentUser = null;
-let currentRole = "staff";
-let currentPermissions = {};
-let allPermissions = [];
-
-const permissionFields = ["can_view_dashboard","can_view_sales","can_add_sales","can_edit_sales","can_delete_sales","can_view_expenses","can_add_expenses","can_edit_expenses","can_delete_expenses","can_view_inventory","can_add_inventory","can_edit_inventory","can_delete_inventory","can_view_sop","can_add_sop","can_edit_sop","can_delete_sop","can_view_reports","can_manage_settings"];
-const roleNames = ["admin","manager","staff","inventory_user"];
-
-document.querySelectorAll('input[type="date"]').forEach(i => i.value = todayISO());
-
-function row(title, meta){ return `<div class="item"><strong>${title}</strong><div class="meta">${meta}</div></div>`; }
-function sum(rows, key){ return (rows || []).reduce((a,r)=>a+Number(r[key]||0),0); }
-function formObj(form){ const obj = Object.fromEntries(new FormData(form).entries()); Object.keys(obj).forEach(k=>{ if(obj[k]==="") obj[k]=null; }); return obj; }
-function showError(title, err){ const msg = err?.message || err || "Unknown error"; console.error(title, err); const box = document.createElement("div"); box.className = "card errorbox"; box.innerHTML = `<b>${title}</b>\n${msg}`; document.querySelector("main").prepend(box); }
-function hasPerm(p){ return currentPermissions?.[p] === true; }
-
-function saveSession(user, permissions){
-  localStorage.setItem("rm_manual_user", JSON.stringify(user));
-  localStorage.setItem("rm_manual_perms", JSON.stringify(permissions));
-}
-
-function readSession(){
-  try{
-    const user = JSON.parse(localStorage.getItem("rm_manual_user") || "null");
-    const perms = JSON.parse(localStorage.getItem("rm_manual_perms") || "null");
-    if(user && perms){ currentUser = user; currentRole = user.role; currentPermissions = perms; return true; }
-  }catch(e){}
-  return false;
-}
-
-function clearSession(){
-  localStorage.removeItem("rm_manual_user");
-  localStorage.removeItem("rm_manual_perms");
-}
-
-async function loadRolePermissions(role){
-  const { data, error } = await db.from("role_permissions").select("*").eq("role", role).maybeSingle();
-  if(error || !data){
-    return { role:"staff", can_view_sales:true, can_add_sales:true, can_view_expenses:true, can_add_expenses:true };
-  }
-  return data;
-}
-
-function applyPermissions(){
-  document.querySelectorAll("[data-permission]").forEach(btn => {
-    const perm = btn.dataset.permission;
-    btn.classList.toggle("hidden", !hasPerm(perm));
-  });
-  $("saveSaleBtn").classList.toggle("hidden", !hasPerm("can_add_sales"));
-  $("saveExpenseBtn").classList.toggle("hidden", !hasPerm("can_add_expenses"));
-  $("saveSopBtn").classList.toggle("hidden", !hasPerm("can_add_sop"));
-  const firstVisible = [...document.querySelectorAll(".tabs button")].find(b => !b.classList.contains("hidden"));
-  if(firstVisible) activateTab(firstVisible.dataset.tab);
-}
-
-async function showApp(){
-  $("authView").classList.add("hidden");
-  $("appView").classList.remove("hidden");
-  $("logoutBtn").classList.remove("hidden");
-  applyPermissions();
-  await loadAll();
-}
-
-async function checkSession(){
-  if(readSession()){
-    currentPermissions = await loadRolePermissions(currentUser.role);
-    saveSession(currentUser, currentPermissions);
-    await showApp();
-  }else{
-    $("authView").classList.remove("hidden");
-    $("appView").classList.add("hidden");
-    $("logoutBtn").classList.add("hidden");
-  }
-}
-
-$("loginBtn").onclick = async () => {
-  const username = $("username").value.trim();
-  const password = $("password").value;
-  const { data, error } = await db.rpc("app_login", { p_username: username, p_password: password });
-  if(error) return $("authMsg").textContent = error.message;
-  if(!data || !data.length) return $("authMsg").textContent = "Invalid username or password";
-  currentUser = data[0];
-  currentRole = currentUser.role;
-  currentPermissions = await loadRolePermissions(currentRole);
-  saveSession(currentUser, currentPermissions);
-  $("authMsg").textContent = "";
-  await showApp();
-};
-
-$("logoutBtn").onclick = () => { clearSession(); location.reload(); };
-
-function activateTab(tab){
-  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
-  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id===tab));
-}
-document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => activateTab(b.dataset.tab));
-
-async function loadMenu(){
-  const fallback = [["Chicken Biryani",120,0],["Veg Biryani",100,0],["Veg Thali",120,0],["Bangda Thali",150,0],["Fish Thali",150,0],["Prawns Thali",180,0],["King Fish Thali",220,0],["Ros Omelette",80,0],["Tea",20,0],["Cold Drink",40,0]].map(([name, default_selling_price, default_plate_cost]) => ({name, default_selling_price, default_plate_cost}));
-  const { data, error } = await db.from("menu_items").select("*").eq("active", true).order("name");
-  menuItems = error || !data?.length ? fallback : data;
-  const options = `<option value="">Select menu item</option>` + menuItems.map(i => `<option value="${i.name}">${i.name}</option>`).join("");
-  $("saleItem").innerHTML = options; $("sopItem").innerHTML = options;
-}
-function menu(name){ return menuItems.find(i => i.name === name) || {}; }
-
-$("saleItem").addEventListener("change", () => { const item = menu($("saleItem").value); $("salePrice").value = item.default_selling_price || ""; updateSalePreview(); });
-$("saleQty").addEventListener("input", updateSalePreview); $("salePrice").addEventListener("input", updateSalePreview);
-function updateSalePreview(){ const item = menu($("saleItem").value); const qty = Number($("saleQty").value || 0); const price = Number($("salePrice").value || 0); const cost = Number(item.default_plate_cost || 0); $("saleTotalPreview").textContent = money(qty * price); $("saleCostPreview").textContent = money(cost); $("saleProfitPreview").textContent = money((qty * price) - (qty * cost)); }
-
-$("expenseQty").addEventListener("input", updateRate); $("buyPrice").addEventListener("input", updateRate);
-function updateRate(){ const qty = Number($("expenseQty").value || 0); const price = Number($("buyPrice").value || 0); $("ratePreview").textContent = qty ? money(price / qty) : money(0); }
-
-$("salesForm").onsubmit = async e => {
-  e.preventDefault(); if(!hasPerm("can_add_sales")) return alert("Your role cannot add sales.");
-  const obj = formObj(e.target); const item = menu(obj.item_name);
-  obj.username = currentUser.username;
-  obj.quantity = Number(obj.quantity || 0);
-  obj.selling_price = Number(obj.selling_price || 0);
-  obj.plate_cost = Number(item.default_plate_cost || 0);
-  obj.total_food_cost = obj.quantity * obj.plate_cost;
-  obj.gross_profit = (obj.quantity * obj.selling_price) - obj.total_food_cost;
-  const { error } = await db.from("sales").insert(obj);
-  if(error) return alert(error.message);
-  e.target.reset(); document.querySelector('#salesForm input[type="date"]').value = todayISO(); updateSalePreview(); await loadAll(); toast("Sale saved");
-};
-
-$("expenseForm").onsubmit = async e => {
-  e.preventDefault(); if(!hasPerm("can_add_expenses")) return alert("Your role cannot add expenses.");
-  const obj = formObj(e.target);
-  obj.username = currentUser.username;
-  obj.quantity = Number(obj.quantity || 0);
-  obj.total_price = Number(obj.total_price || 0);
-  obj.buying_price = obj.total_price;
-  const { error } = await db.from("expenses").insert(obj);
-  if(error) return alert(error.message);
-  e.target.reset(); document.querySelector('#expenseForm input[type="date"]').value = todayISO(); updateRate(); await loadAll(); toast("Expense saved and inventory updated");
-};
-
-function parseIngredients(text){ return (text || "").split("\n").map(l=>l.trim()).filter(Boolean).map(line => { const p = line.split("|").map(x=>x.trim()); return { ingredient_name:p[0], quantity_required:Number(p[1]||0), unit:p[2]||"kg", ingredient_price:Number(p[3]||0) }; }).filter(i => i.ingredient_name && i.quantity_required > 0); }
-
-$("sopForm").onsubmit = async e => {
-  e.preventDefault(); if(!hasPerm("can_add_sop")) return alert("Your role cannot add SOP.");
-  const obj = formObj(e.target);
-  const ingredients = parseIngredients(obj.ingredients_text);
-  const total = ingredients.reduce((a,i)=>a + i.quantity_required * i.ingredient_price,0);
-  const plates = Number(obj.plates_produced || 0);
-  const selling = Number(obj.selling_price || 0);
-  const costPlate = plates ? total / plates : 0;
-  const profitPlate = selling - costPlate;
-  const payload = { menu_item_name: obj.menu_item_name, selling_price: selling, quantity_prepared: Number(obj.quantity_prepared || 0), plates_produced: plates, total_recipe_cost: total, cost_per_plate: costPlate, profit_per_plate: profitPlate, preparation_steps: obj.preparation_steps, hygiene_instructions: obj.hygiene_instructions, portion_size: obj.portion_size, plating_instructions: obj.plating_instructions, storage_instructions: obj.storage_instructions };
-  const { data: recipe, error } = await db.from("sop_recipes").insert(payload).select().single();
-  if(error) return alert(error.message);
-  if(ingredients.length){
-    const { error: ingErr } = await db.from("sop_ingredients").insert(ingredients.map(i => ({...i, recipe_id:recipe.id})));
-    if(ingErr) return alert(ingErr.message);
-  }
-  await db.from("recipe_preparations").insert({ recipe_id: recipe.id, menu_item_name: obj.menu_item_name, plates_prepared: plates, total_cost: total, cost_per_plate: costPlate });
-  for(const ing of ingredients) await reduceInventory(ing.ingredient_name, ing.quantity_required, ing.unit, recipe.id);
-  await db.from("menu_items").upsert({ name: obj.menu_item_name, default_selling_price: selling, default_plate_cost: costPlate, active:true }, { onConflict:"name" });
-  e.target.reset(); await loadAll(); toast("SOP saved, costing updated, inventory reduced");
-};
-
-async function reduceInventory(itemName, qty, unit, recipeId){
-  const { data } = await db.from("inventory").select("*").ilike("raw_material_name", itemName).limit(1).maybeSingle();
-  if(data){ await db.from("inventory").update({ stock_used: Number(data.stock_used || 0) + qty }).eq("id", data.id); }
-  else{ await db.from("inventory").insert({ raw_material_name:itemName, category:"Raw Material", unit, opening_stock:0, stock_added:0, stock_used:qty, minimum_stock_level:0 }); }
-  await db.from("inventory_transactions").insert({ item_name:itemName, category:"Raw Material", unit, transaction_type:"recipe_use", quantity:qty, amount:0, reference_table:"sop_recipes", reference_id:recipeId });
-}
-$("refreshBtn").onclick = () => loadAll();
-
-async function loadAll(){ await loadMenu(); await Promise.all([loadDashboard(), loadSales(), loadExpenses(), loadInventory(), loadSOP(), loadReports(), loadSettings()]); }
-
-async function loadDashboard(){
-  const today = todayISO(), start = monthStartISO();
-  const [sT,eT,sM,eM,inv,rec] = await Promise.all([db.from("sales").select("*").eq("sale_date", today), db.from("expenses").select("*").eq("expense_date", today), db.from("sales").select("*").gte("sale_date", start), db.from("expenses").select("*").gte("expense_date", start), db.from("inventory").select("*").order("raw_material_name"), db.from("sop_recipes").select("*").order("created_at", {ascending:false})]);
-  const salesT=sum(sT.data,"total_amount"), expT=sum(eT.data,"total_price"), foodT=sum(sT.data,"total_food_cost");
-  const salesM=sum(sM.data,"total_amount"), expM=sum(eM.data,"total_price"), foodM=sum(sM.data,"total_food_cost");
-  const low=(inv.data||[]).filter(i=>Number(i.closing_stock||0)<=Number(i.minimum_stock_level||0));
-  $("todaySales").textContent=money(salesT); $("todayExpenses").textContent=money(expT); $("todayFoodCost").textContent=money(foodT); $("todayNetProfit").textContent=money(salesT-foodT-expT); $("monthSales").textContent=money(salesM); $("monthExpenses").textContent=money(expM); $("monthProfit").textContent=money(salesM-foodM-expM); $("lowStockCount").textContent=low.length;
-  renderTopSelling(sT.data||[]); $("lowStockList").innerHTML=low.length?low.map(i=>row(i.raw_material_name,`<span class="pill red">LOW</span> Closing ${i.closing_stock} ${i.unit||""} | Minimum ${i.minimum_stock_level}`)).join(""):row("No low-stock items","Inventory is above minimum level."); renderCosting(rec.data||[]); renderExpensive(eT.data||[]);
-}
-
-function renderTopSelling(rows){ const map={}; rows.forEach(r=>{ map[r.item_name] ||= {qty:0,sales:0,cost:0,profit:0}; map[r.item_name].qty+=Number(r.quantity||0); map[r.item_name].sales+=Number(r.total_amount||0); map[r.item_name].cost+=Number(r.total_food_cost||0); map[r.item_name].profit+=Number(r.gross_profit||0); }); const list=Object.entries(map).sort((a,b)=>b[1].qty-a[1].qty); $("topSellingList").innerHTML=list.length?list.map(([n,v])=>row(n,`Qty ${v.qty} | Sales ${money(v.sales)} | Plate cost ${money(v.cost)} | Profit ${money(v.profit)}`)).join(""):row("No sales today","Add sales to see top-selling items."); }
-function renderCosting(rows){ const latest={}; rows.forEach(r=>{ latest[r.menu_item_name] ||= r; }); const list=Object.values(latest); $("costingList").innerHTML=list.length?list.map(r=>row(r.menu_item_name,`<span class="pill orange">Cost ${money(r.cost_per_plate)}</span><span class="pill">Sell ${money(r.selling_price)}</span> Profit/plate ${money(r.profit_per_plate)}`)).join(""):row("No SOP costing yet","Add SOP recipe to calculate cost per plate."); }
-function renderExpensive(rows){ const list=[...rows].sort((a,b)=>Number(b.total_price||0)-Number(a.total_price||0)).slice(0,8); $("expensiveList").innerHTML=list.length?list.map(r=>row(`${r.item_name} - ${money(r.total_price)}`,`${r.category||""} | Qty ${r.quantity||"-"} ${r.unit||""} | Supplier ${r.supplier||"-"}`)).join(""):row("No purchases today","Add expenses to see expensive purchases."); }
-
-async function loadSales(){ const {data,error}=await db.from("sales").select("*").order("sale_date",{ascending:false}).order("id",{ascending:false}).limit(20); $("salesList").innerHTML=error?row("Error",error.message):data.length?data.map(r=>row(`${r.item_name} - ${money(r.total_amount)}`,`${r.sale_date} | Qty ${r.quantity} | ${r.payment_mode} | Plate cost ${money(r.total_food_cost)} | Profit ${money(r.gross_profit)}`)).join(""):row("No sales","Use fast sales entry above."); }
-async function loadExpenses(){ const {data,error}=await db.from("expenses").select("*").order("expense_date",{ascending:false}).order("id",{ascending:false}).limit(20); $("expensesList").innerHTML=error?row("Error",error.message):data.length?data.map(r=>row(`${r.item_name} - ${money(r.total_price)}`,`${r.expense_date} | ${r.category} | Qty ${r.quantity||"-"} ${r.unit||""} | Rate ${r.price_per_unit ? money(r.price_per_unit) : "-"} | Supplier ${r.supplier||"-"}`)).join(""):row("No expenses","Add purchase/expense above."); }
-async function loadInventory(){ const {data,error}=await db.from("inventory").select("*").order("raw_material_name"); $("inventoryList").innerHTML=error?row("Error",error.message):data.length?data.map(r=>row(r.raw_material_name,`<span class="pill">${r.category||"-"}</span> Unit ${r.unit||"-"} | Opening ${r.opening_stock} | Added ${r.stock_added} | Used ${r.stock_used} | Closing <b>${r.closing_stock}</b> | Min ${r.minimum_stock_level} | Last ${money(r.last_purchase_price)} | Avg ${money(r.average_purchase_price)}`)).join(""):row("No inventory","Add expenses first. Inventory will update automatically."); }
-async function loadSOP(){ const {data,error}=await db.from("sop_recipes").select("*").order("created_at",{ascending:false}).limit(30); $("sopList").innerHTML=error?row("Error",error.message):data.length?data.map(r=>row(r.menu_item_name,`Prepared ${r.quantity_prepared} | Plates ${r.plates_produced} | Total cost ${money(r.total_recipe_cost)} | Cost/plate ${money(r.cost_per_plate)} | Sell ${money(r.selling_price)} | Profit/plate ${money(r.profit_per_plate)}`)).join(""):row("No SOP recipes","Add a recipe above."); }
-async function loadReports(){ const today=todayISO(), start=monthStartISO(); const [sT,eT,sM,eM]=await Promise.all([db.from("sales").select("*").eq("sale_date",today), db.from("expenses").select("*").eq("expense_date",today), db.from("sales").select("*").gte("sale_date",start), db.from("expenses").select("*").gte("expense_date",start)]); const dSales=sum(sT.data,"total_amount"), dExp=sum(eT.data,"total_price"), dCost=sum(sT.data,"total_food_cost"); const mSales=sum(sM.data,"total_amount"), mExp=sum(eM.data,"total_price"), mCost=sum(sM.data,"total_food_cost"); $("rDailySales").textContent=money(dSales); $("rDailyExpenses").textContent=money(dExp); $("rDailyProfit").textContent=money(dSales-dCost-dExp); $("rMonthSales").textContent=money(mSales); $("rMonthExpenses").textContent=money(mExp); $("rMonthProfit").textContent=money(mSales-mCost-mExp); renderItemReport(sM.data||[]); renderPaymentReport(sM.data||[]); }
-function renderItemReport(rows){ const map={}; rows.forEach(r=>{ map[r.item_name] ||= {qty:0,sales:0,cost:0,profit:0}; map[r.item_name].qty+=Number(r.quantity||0); map[r.item_name].sales+=Number(r.total_amount||0); map[r.item_name].cost+=Number(r.total_food_cost||0); map[r.item_name].profit+=Number(r.gross_profit||0); }); const list=Object.entries(map).sort((a,b)=>b[1].sales-a[1].sales); $("itemReport").innerHTML=list.length?list.map(([n,v])=>row(n,`Qty ${v.qty} | Sales ${money(v.sales)} | Plate cost ${money(v.cost)} | Gross profit ${money(v.profit)}`)).join(""):row("No item-wise sales","Sales will appear here."); }
-function renderPaymentReport(rows){ const map={}; rows.forEach(r=>{ map[r.payment_mode] ||= {count:0,amount:0}; map[r.payment_mode].count+=1; map[r.payment_mode].amount+=Number(r.total_amount||0); }); const list=Object.entries(map).sort((a,b)=>b[1].amount-a[1].amount); $("paymentReport").innerHTML=list.length?list.map(([n,v])=>row(n,`Entries ${v.count} | Amount ${money(v.amount)}`)).join(""):row("No payment data","Payment mode report will appear here."); }
-
-async function loadSettings(){
-  if(!hasPerm("can_manage_settings")) return;
-  await Promise.all([loadUsersEditor(), loadPermissionsEditor()]);
-}
-
-$("createUserForm").onsubmit = async e => {
-  e.preventDefault();
-  if(!hasPerm("can_manage_settings")) return alert("Your role cannot create users.");
-  const obj = formObj(e.target);
-  const { error } = await db.rpc("app_create_user", {
-    p_username: obj.username,
-    p_password: obj.password,
-    p_display_name: obj.display_name || obj.username,
-    p_role: obj.role
-  });
-  if(error) return alert(error.message);
-  e.target.reset();
-  await loadUsersEditor();
-  toast("User created");
-};
-
-async function loadUsersEditor(){
-  const { data, error } = await db.rpc("app_list_users");
-  if(error){ $("usersList").innerHTML = row("Error loading users", error.message + "<br>Run the latest user-list SQL fix."); return; }
-  $("usersList").innerHTML = (data||[]).map(u => `
-    <div class="item">
-      <div class="user-row">
-        <input data-u-name="${u.id}" value="${u.display_name || ""}" placeholder="Display name">
-        <select data-u-role="${u.id}">
-          ${roleNames.map(r => `<option value="${r}" ${u.role===r?"selected":""}>${r}</option>`).join("")}
-        </select>
-        <select data-u-active="${u.id}">
-          <option value="true" ${u.active?"selected":""}>active</option>
-          <option value="false" ${!u.active?"selected":""}>inactive</option>
-        </select>
-        <button class="small" onclick="saveUser(${u.id})">Save</button>
-      </div>
-      <div class="meta"><b>User ID:</b> ${u.username} | <b>System ID:</b> ${u.id} | <b>Created:</b> ${u.created_at ? String(u.created_at).slice(0,10) : "-"}</div>
-      <div class="user-row" style="margin-top:10px">
-        <input data-u-pass="${u.id}" type="password" placeholder="New password">
-        <button class="small" onclick="changePassword(${u.id})">Change Password</button>
-      </div>
-    </div>
-  `).join("") || row("No users found", "Run the latest user-list SQL fix and refresh the app.");
-}
-
-async function saveUser(id){
-  const displayName = document.querySelector(`[data-u-name="${id}"]`).value;
-  const role = document.querySelector(`[data-u-role="${id}"]`).value;
-  const active = document.querySelector(`[data-u-active="${id}"]`).value === "true";
-  const { error } = await db.rpc("app_update_user", { p_id:id, p_display_name:displayName, p_role:role, p_active:active });
-  if(error) return alert(error.message);
-  toast("User updated");
-  await loadUsersEditor();
-}
-
-async function changePassword(id){
-  const pass = document.querySelector(`[data-u-pass="${id}"]`).value;
-  if(!pass) return alert("Enter new password");
-  const { error } = await db.rpc("app_change_password", { p_id:id, p_new_password:pass });
-  if(error) return alert(error.message);
-  toast("Password changed");
-  await loadUsersEditor();
-}
-
-async function loadPermissionsEditor(){
-  const { data, error } = await db.from("role_permissions").select("*").order("role");
-  if(error){ $("permissionsEditor").innerHTML = row("Error", error.message); return; }
-  allPermissions = data || [];
-  $("permissionsEditor").innerHTML = allPermissions.map(role => `
-    <div class="role-card">
-      <h3>${role.role}</h3>
-      <div class="perm-grid">
-        ${permissionFields.map(f => `
-          <label class="perm-row">
-            <span>${f.replaceAll("_"," ")}</span>
-            <input type="checkbox" data-role="${role.role}" data-field="${f}" ${role[f] ? "checked" : ""}>
-          </label>
-        `).join("")}
-      </div>
-      <br>
-      <button class="small" onclick="saveRolePermissions('${role.role}')">Save ${role.role} privileges</button>
-    </div>
-  `).join("");
-}
-
-async function saveRolePermissions(role){
-  const payload = {};
-  permissionFields.forEach(f => {
-    const input = document.querySelector(`[data-role="${role}"][data-field="${f}"]`);
-    payload[f] = input.checked;
-  });
-  payload.updated_at = new Date().toISOString();
-  const { error } = await db.from("role_permissions").update(payload).eq("role", role);
-  if(error) return alert(error.message);
-  toast("Privileges updated. Logout/login again.");
-  if(role === currentRole){ currentPermissions = await loadRolePermissions(currentRole); saveSession(currentUser, currentPermissions); applyPermissions(); }
-}
-
-window.saveUser = saveUser;
-window.changePassword = changePassword;
-window.saveRolePermissions = saveRolePermissions;
-
+const SUPABASE_URL="https://jtycpytipcqlghvqtgvm.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6Imp0eWNweXRpcGNxbGdodnF0Z3ZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1OTgzODcsImV4cCI6MjA5OTE3NDM4N30.TIHtwc3Jv5D9wyLH9S6fDPTZLckdQm3HYYXHlkeVJY8";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const $=id=>document.getElementById(id);
+const money=v=>`₹${Number(v||0).toLocaleString("en-IN",{maximumFractionDigits:2})}`;
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const uid=()=>Date.now().toString(36)+"-"+Math.random().toString(36).slice(2);
+const toast=m=>{$("toast").textContent=m;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2500)};
+const row=(t,m)=>`<div class="item"><strong>${t}</strong><div class="meta">${m}</div></div>`;
+const sum=(a,k)=>(a||[]).reduce((x,r)=>x+Number(r[k]||0),0);
+const formObj=f=>Object.fromEntries(new FormData(f).entries());
+let currentUser=null,currentPermissions={},menuItems=[],sops=[];
+const permissionFields=["can_view_dashboard","can_view_sales","can_add_sales","can_edit_sales","can_delete_sales","can_view_expenses","can_add_expenses","can_edit_expenses","can_delete_expenses","can_view_inventory","can_add_inventory","can_edit_inventory","can_delete_inventory","can_view_sop","can_add_sop","can_edit_sop","can_delete_sop","can_view_daily_production","can_add_production","can_edit_draft_production","can_confirm_production","can_cancel_production","can_delete_production","can_view_production_cost","can_view_prepared_food_stock","can_record_wastage","can_view_profit_reports","can_view_reports","can_manage_settings"];
+const roleNames=["admin","manager","staff","inventory_user"];
+document.querySelectorAll('input[type="date"]').forEach(i=>i.value=todayISO());
+function readSession(){try{currentUser=JSON.parse(localStorage.rm_user||"null");currentPermissions=JSON.parse(localStorage.rm_perms||"null");return !!currentUser&&!!currentPermissions}catch(e){return false}}
+function saveSession(){localStorage.rm_user=JSON.stringify(currentUser);localStorage.rm_perms=JSON.stringify(currentPermissions)}
+function clearSession(){localStorage.removeItem("rm_user");localStorage.removeItem("rm_perms")}
+function hasPerm(p){return currentPermissions&&currentPermissions[p]===true}
+async function loadRolePermissions(role){const{data}=await db.from("role_permissions").select("*").eq("role",role).maybeSingle();return data||{can_view_sales:true,can_add_sales:true,can_view_expenses:true,can_add_expenses:true}}
+function activateTab(tab){document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===tab))}
+function applyPermissions(){document.querySelectorAll("[data-permission]").forEach(b=>b.classList.toggle("hidden",!hasPerm(b.dataset.permission)));["saveSaleBtn","saveExpenseBtn","confirmProductionBtn","saveSopBtn","recordWastageBtn"].forEach(id=>{if($(id))$(id).classList.toggle("hidden",id==="saveSaleBtn"?!hasPerm("can_add_sales"):id==="saveExpenseBtn"?!hasPerm("can_add_expenses"):id==="confirmProductionBtn"?!hasPerm("can_confirm_production"):id==="recordWastageBtn"?!hasPerm("can_record_wastage"):!hasPerm("can_add_sop"))});const first=[...document.querySelectorAll(".tabs button")].find(b=>!b.classList.contains("hidden"));if(first)activateTab(first.dataset.tab)}
+$("loginBtn").onclick=async()=>{const{data,error}=await db.rpc("app_login",{p_username:$("username").value.trim(),p_password:$("password").value});if(error)return $("authMsg").textContent=error.message;if(!data||!data.length)return $("authMsg").textContent="Invalid username or password";currentUser=data[0];currentPermissions=await loadRolePermissions(currentUser.role);saveSession();await showApp()};
+$("logoutBtn").onclick=()=>{clearSession();location.reload()};
+async function checkSession(){if(readSession()){currentPermissions=await loadRolePermissions(currentUser.role);saveSession();await showApp()}else{$("authView").classList.remove("hidden");$("appView").classList.add("hidden");$("logoutBtn").classList.add("hidden")}}
+async function showApp(){$("authView").classList.add("hidden");$("appView").classList.remove("hidden");$("logoutBtn").classList.remove("hidden");applyPermissions();await loadAll();subscribeRealtime()}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>activateTab(b.dataset.tab));
+function filterDates(v,startEl,endEl){let d=new Date(),s=todayISO(),e=todayISO();if(v==="yesterday"){d.setDate(d.getDate()-1);s=e=d.toISOString().slice(0,10)}if(v==="week"){let x=new Date();x.setDate(x.getDate()-6);s=x.toISOString().slice(0,10)}if(v==="month"){s=new Date(new Date().getFullYear(),new Date().getMonth(),1).toISOString().slice(0,10)}if(v==="custom"){s=e=$(startEl).value||todayISO()}if(v==="range"){s=$(startEl).value||todayISO();e=$(endEl).value||s}return{s,e}}
+async function loadMenu(){let{data}=await db.from("menu_items").select("*").eq("active",true).order("name");menuItems=data||[];$("saleItem").innerHTML='<option value="">Select menu item</option>'+menuItems.map(i=>`<option>${i.name}</option>`).join("");}
+async function loadSops(){let{data}=await db.from("sop_recipes").select("*").eq("active",true).order("menu_item_name");sops=data||[];$("sopListData").innerHTML=sops.map(s=>`<option value="${s.menu_item_name}"></option>`).join("");}
+function selectedSop(){return sops.find(s=>s.menu_item_name.toLowerCase()===$("prodDish").value.toLowerCase())}
+$("saleItem").addEventListener("change",()=>{let m=menuItems.find(x=>x.name===$("saleItem").value);$("salePrice").value=m?.default_selling_price||""});
+["prodDish","prodQty","prodUnit","addCost"].forEach(id=>$(id)?.addEventListener("input",previewProduction));
+async function previewProduction(){let s=selectedSop();let q=Number($("prodQty").value||0),u=$("prodUnit").value;if(!s||!q)return;$("stdQty").value=`${s.standard_quantity} ${s.standard_unit}`;$("prodMultiplier").value=(unitToBase(q,u)/unitToBase(s.standard_quantity,s.standard_unit)).toFixed(3);let{data,error}=await db.rpc("app_preview_production",{p_sop_id:s.id,p_quantity:q,p_unit:u});if(error){$("prodPreview").innerHTML=row("Preview error",error.message);return}let cost=sum(data,"ingredient_cost");$("ingredientCost").value=money(cost);$("totalProdCost").value=money(cost+Number($("addCost").value||0));$("expectedServings").value=s.serving_size?Math.floor(unitToBase(q,u)/unitToBase(s.serving_size,s.serving_unit)):s.expected_servings||0;$("prodPreview").innerHTML=(data||[]).map(x=>row(x.ingredient_name,`Required ${Number(x.required_quantity).toFixed(2)} ${x.normalized_unit} | Available ${Number(x.available_quantity).toFixed(2)} | Remaining ${Number(x.remaining_quantity).toFixed(2)} | Shortage <b>${Number(x.shortage_quantity).toFixed(2)}</b> | Cost ${money(x.ingredient_cost)}`)).join("")}
+function unitToBase(q,u){u=(u||"").toLowerCase();if(u==="kg"||u==="litre"||u==="liter")return Number(q||0)*1000;return Number(q||0)}
+$("productionForm").onsubmit=async e=>{e.preventDefault();if(!hasPerm("can_confirm_production"))return alert("No permission to confirm production");let o=formObj(e.target),s=selectedSop();if(!s)return alert("Select active SOP first");$("confirmProductionBtn").disabled=true;const{error}=await db.rpc("app_confirm_production",{p_idempotency_key:uid(),p_production_date:o.production_date,p_sop_id:s.id,p_quantity:Number(o.quantity_prepared),p_unit:o.production_unit,p_additional_cost:Number(o.additional_cost||0),p_actual_servings:o.actual_servings?Number(o.actual_servings):null,p_prepared_by:o.prepared_by||currentUser.username,p_notes:o.notes||""});$("confirmProductionBtn").disabled=false;if(error)return alert(error.message);e.target.reset();document.querySelector('#productionForm input[type="date"]').value=todayISO();await loadAll();toast("Production confirmed, raw inventory deducted, prepared stock added")};
+async function cancelProduction(id){if(!hasPerm("can_cancel_production"))return alert("No permission");if(!confirm("Cancel this production entry and restore the deducted ingredients?"))return;let{error}=await db.rpc("app_cancel_production",{p_production_id:id,p_username:currentUser.username});if(error)return alert(error.message);await loadAll();toast("Production cancelled and stock restored")}
+window.cancelProduction=cancelProduction;
+$("salesForm").onsubmit=async e=>{e.preventDefault();if(!hasPerm("can_add_sales"))return alert("No permission");let o=formObj(e.target);let{error}=await db.rpc("app_create_sale",{p_username:currentUser.username,p_sale_date:o.sale_date,p_item_name:o.item_name,p_quantity:Number(o.quantity),p_selling_price:Number(o.selling_price),p_payment_mode:o.payment_mode,p_notes:o.notes||""});if(error)return alert(error.message);e.target.reset();document.querySelector('#salesForm input[type="date"]').value=todayISO();await loadAll();toast("Sale saved and prepared stock deducted")};
+$("expenseForm").onsubmit=async e=>{e.preventDefault();if(!hasPerm("can_add_expenses"))return alert("No permission");let o=formObj(e.target);o.username=currentUser.username;o.quantity=Number(o.quantity||0);o.total_price=Number(o.total_price||0);o.buying_price=o.total_price;let{error}=await db.from("expenses").insert(o);if(error)return alert(error.message);e.target.reset();document.querySelector('#expenseForm input[type="date"]').value=todayISO();await loadAll();toast("Expense saved")};
+$("wastageForm").onsubmit=async e=>{e.preventDefault();let o=formObj(e.target);let{error}=await db.rpc("app_record_wastage",{p_wastage_date:o.wastage_date,p_dish_name:o.dish_name,p_quantity:Number(o.quantity),p_unit:o.unit,p_reason:o.reason||"",p_recorded_by:currentUser.username});if(error)return alert(error.message);e.target.reset();document.querySelector('#wastageForm input[type="date"]').value=todayISO();await loadAll();toast("Wastage recorded")};
+$("checkCapacityBtn").onclick=loadCapacity;
+async function loadCapacity(){let{data,error}=await db.rpc("app_thali_capacity",{p_thali_name:$("capacityThali").value,p_date:$("capacityDate").value||todayISO()});if(error)return $("capacityList").innerHTML=row("Error",error.message);let min=Math.min(...(data||[]).map(x=>Number(x.plate_capacity||0)));$("capacityList").innerHTML=row("Maximum thali capacity",`${isFinite(min)?min:0} plates`) + (data||[]).map(x=>row(x.component_name,`Available ${x.available_quantity} ${x.unit} | Required/plate ${x.required_per_plate} | Capacity ${x.plate_capacity} plates`)).join("")}
+async function loadDashboard(){let d=filterDates($("dashFilter").value,"dashStart","dashEnd");let{data}=await db.rpc("app_daily_report",{p_start:d.s,p_end:d.e});let r=data||{};$("kSales").textContent=money(r.sales_revenue);$("kPurchases").textContent=money(r.purchase_expense);$("kProduction").textContent=money(r.production_cost);$("kOperating").textContent=money(r.operating_expense);$("kGross").textContent=money(r.gross_profit);$("kNet").textContent=money(r.net_operating_profit);$("kCashBalance").textContent=money(r.sales_minus_todays_expenses);$("kWastage").textContent=money(r.wastage_cost);$("kPortions").textContent=Number(r.portions_sold||0).toFixed(1);$("kPrepared").textContent=Number(r.prepared_quantity||0).toFixed(1);$("kPreparedClosing").textContent=Number(r.prepared_food_closing_balance||0).toFixed(1);$("kPayments").textContent=`UPI ${money(r.upi_sales)} / Cash ${money(r.cash_sales)} / Card ${money(r.card_sales)}`;simpleBars("chartSalesFood",[["Sales",r.sales_revenue],["Food cost",r.food_cost],["Purchases",r.purchase_expense]]);simpleBars("chartProfit",[["Gross profit",r.gross_profit],["Net profit",r.net_operating_profit],["Cash balance",r.sales_minus_todays_expenses]]);}
+function simpleBars(id,arr){let max=Math.max(1,...arr.map(x=>Math.abs(Number(x[1]||0))));$(id).innerHTML=arr.map(x=>row(x[0],`<div class="bar"><i style="width:${Math.min(100,Math.abs(x[1])/max*100)}%"></i></div>${money(x[1])}`)).join("")}
+$("applyDashFilter").onclick=loadAll;$("applyReportFilter").onclick=loadReports;
+async function loadProduction(){let{data}=await db.from("daily_production").select("*").order("production_date",{ascending:false}).order("id",{ascending:false}).limit(50);$("productionList").innerHTML=(data||[]).map(p=>row(`${p.dish_name} — ${p.quantity_prepared} ${p.production_unit}`,`${p.production_date} | <span class="pill ${p.status==='Cancelled'?'red':'green'}">${p.status}</span> Multiplier ${Number(p.production_multiplier||0).toFixed(2)} | Ingredient ${money(p.ingredient_cost)} | Total ${money(p.total_production_cost)} | Expected ${Number(p.expected_servings||0).toFixed(1)} <br>${p.status==='Confirmed'&&hasPerm("can_cancel_production")?`<button class="small danger" onclick="cancelProduction(${p.id})">Cancel and Restore Stock</button>`:""}`)).join("")||row("No production","Confirm production to see records.")}
+async function loadPreparedStock(){let{data}=await db.from("prepared_food_stock").select("*").order("production_date",{ascending:false}).limit(80);$("preparedStockList").innerHTML=(data||[]).map(s=>row(`${s.dish_name} — Closing ${Number(s.closing_quantity||0).toFixed(2)} ${s.unit}`,`${s.production_date} | Prepared ${s.quantity_prepared} | Sold ${s.quantity_sold} | Wastage ${s.quantity_wasted} | Complimentary ${s.complimentary_quantity}`)).join("")||row("No prepared stock","Production adds prepared-food stock separately from raw inventory.")}
+async function loadSales(){let{data}=await db.from("sales").select("*").order("sale_date",{ascending:false}).order("id",{ascending:false}).limit(30);$("salesList").innerHTML=(data||[]).map(s=>row(`${s.item_name} — ${money(s.total_amount)}`,`${s.sale_date} | Qty ${s.quantity} | ${s.payment_mode} | Food cost ${money(s.total_food_cost)} | Profit ${money(s.gross_profit)}`)).join("")||row("No sales","Add sales above.")}
+async function loadExpenses(){let{data}=await db.from("expenses").select("*").order("expense_date",{ascending:false}).order("id",{ascending:false}).limit(30);$("expensesList").innerHTML=(data||[]).map(e=>row(`${e.item_name} — ${money(e.total_price)}`,`${e.expense_date} | ${e.category} | Qty ${e.quantity||"-"} ${e.unit||""} | Supplier ${e.supplier||"-"}`)).join("")||row("No expenses","Add expenses above.")}
+async function loadInventory(){let{data}=await db.from("inventory").select("*").order("raw_material_name");$("inventoryList").innerHTML=(data||[]).map(i=>row(i.raw_material_name,`Unit ${i.unit} | Opening ${i.opening_stock} | Added ${i.stock_added} | Used ${i.stock_used} | Closing <b>${i.closing_stock}</b> | Avg ${money(i.average_purchase_price)}`)).join("")||row("No inventory","Purchases add raw material inventory.")}
+async function loadSopTables(){let{data}=await db.from("sop_recipes").select("*").order("menu_item_name");$("sopRows").innerHTML=(data||[]).map(s=>row(s.menu_item_name,`${s.is_composite?"Composite thali":"Direct dish"} | Standard ${s.standard_quantity} ${s.standard_unit} | Serving ${s.serving_size} ${s.serving_unit} | Active ${s.active}`)).join("");let{data:tc}=await db.from("thali_components").select("*").order("thali_sop_id").order("sort_order");$("thaliRows").innerHTML=(tc||[]).map(c=>row(c.component_name,`Qty/plate ${c.quantity_per_plate} ${c.unit} | Snapshot ${money(c.cost_per_plate_snapshot)}`)).join("")}
+$("sopForm").onsubmit=async e=>{e.preventDefault();if(!hasPerm("can_add_sop"))return alert("No permission");let o=formObj(e.target);let isComp=o.preparation_type==="plate";let{data,error}=await db.from("sop_recipes").insert({menu_item_name:o.menu_item_name,selling_price:Number(o.selling_price||0),preparation_type:o.preparation_type,standard_quantity:Number(o.standard_quantity||1),standard_unit:o.standard_unit,serving_size:Number(o.serving_size||1),serving_unit:o.serving_unit,expected_servings:0,active:true,is_composite:isComp}).select().single();if(error)return alert(error.message);let lines=(isComp?o.components_text:o.ingredients_text||"").split("\n").map(x=>x.trim()).filter(Boolean);if(isComp){for(let i=0;i<lines.length;i++){let p=lines[i].split("|").map(x=>x.trim());await db.from("thali_components").insert({thali_sop_id:data.id,component_name:p[0],quantity_per_plate:Number(p[1]||0),unit:p[2]||"g",sort_order:i+1})}}else{for(let l of lines){let p=l.split("|").map(x=>x.trim());await db.from("sop_ingredients").insert({recipe_id:data.id,ingredient_name:p[0],quantity_required:Number(p[1]||0),unit:p[2]||"g",ingredient_price:0})}}e.target.reset();await loadAll();toast("SOP saved")};
+async function loadReports(){let d=filterDates($("reportFilter").value,"reportStart","reportEnd");let{data}=await db.rpc("app_daily_report",{p_start:d.s,p_end:d.e});let r=data||{};$("dailyReport").innerHTML=[["Sales revenue",r.sales_revenue],["Food cost",r.food_cost],["Gross profit",r.gross_profit],["Operating expenses",r.operating_expense],["Wastage cost",r.wastage_cost],["Net operating profit",r.net_operating_profit],["Purchase expenses",r.purchase_expense],["Sales minus today’s expenses",r.sales_minus_todays_expenses],["Profit margin %",r.profit_margin_pct]].map(x=>row(x[0],typeof x[1]==="number"&&x[0]!="Profit margin %" ? money(x[1]) : (x[1]||0))).join("")}
+async function loadUsersEditor(){if(!hasPerm("can_manage_settings"))return;let{data,error}=await db.rpc("app_list_users");if(error)return $("usersList").innerHTML=row("Error loading users",error.message);$("usersList").innerHTML=(data||[]).map(u=>`<div class="item"><div class="user-row"><input data-u-name="${u.id}" value="${u.display_name||""}"><select data-u-role="${u.id}">${roleNames.map(r=>`<option value="${r}" ${u.role===r?"selected":""}>${r}</option>`).join("")}</select><select data-u-active="${u.id}"><option value="true" ${u.active?"selected":""}>active</option><option value="false" ${!u.active?"selected":""}>inactive</option></select><button class="small" onclick="saveUser(${u.id})">Save</button></div><div class="meta"><b>User ID:</b> ${u.username} | System ID ${u.id}</div><div class="user-row" style="margin-top:10px"><input data-u-pass="${u.id}" type="password" placeholder="New password"><button class="small" onclick="changePassword(${u.id})">Change Password</button></div></div>`).join("")}
+$("createUserForm").onsubmit=async e=>{e.preventDefault();let o=formObj(e.target);let{error}=await db.rpc("app_create_user",{p_username:o.username,p_password:o.password,p_display_name:o.display_name||o.username,p_role:o.role});if(error)return alert(error.message);e.target.reset();await loadUsersEditor();toast("User created")};
+async function saveUser(id){let{error}=await db.rpc("app_update_user",{p_id:id,p_display_name:document.querySelector(`[data-u-name="${id}"]`).value,p_role:document.querySelector(`[data-u-role="${id}"]`).value,p_active:document.querySelector(`[data-u-active="${id}"]`).value==="true"});if(error)return alert(error.message);toast("User updated");await loadUsersEditor()}window.saveUser=saveUser;
+async function changePassword(id){let p=document.querySelector(`[data-u-pass="${id}"]`).value;if(!p)return alert("Enter password");let{error}=await db.rpc("app_change_password",{p_id:id,p_new_password:p});if(error)return alert(error.message);toast("Password changed");await loadUsersEditor()}window.changePassword=changePassword;
+async function loadPermissionsEditor(){if(!hasPerm("can_manage_settings"))return;let{data}=await db.from("role_permissions").select("*").order("role");$("permissionsEditor").innerHTML=(data||[]).map(r=>`<div class="role-card"><h3>${r.role}</h3><div class="perm-grid">${permissionFields.map(f=>`<label class="perm-row"><span>${f.replaceAll("_"," ")}</span><input type="checkbox" data-role="${r.role}" data-field="${f}" ${r[f]?"checked":""}></label>`).join("")}</div><br><button class="small" onclick="saveRolePermissions('${r.role}')">Save ${r.role}</button></div>`).join("")}
+async function saveRolePermissions(role){let p={};permissionFields.forEach(f=>p[f]=document.querySelector(`[data-role="${role}"][data-field="${f}"]`).checked);let{error}=await db.from("role_permissions").update(p).eq("role",role);if(error)return alert(error.message);toast("Privileges updated")}window.saveRolePermissions=saveRolePermissions;
+async function loadAll(){await Promise.all([loadMenu(),loadSops()]);await Promise.all([loadDashboard(),loadProduction(),loadPreparedStock(),loadSales(),loadExpenses(),loadInventory(),loadSopTables(),loadReports(),loadUsersEditor(),loadPermissionsEditor(),loadCapacity()]);}
+function subscribeRealtime(){if(window._sub)return;window._sub=db.channel("orderflow-realtime").on("postgres_changes",{event:"*",schema:"public"},()=>loadAll()).subscribe()}
 checkSession();
 </script>
-</body>
-</html>
+</body></html>
